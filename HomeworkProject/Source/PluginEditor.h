@@ -40,7 +40,11 @@ private:
     
     LargeKnob largeKnobLNF;
     SmallKnob smallKnobLNF;
-    juce::LookAndFeel_V3 lookAndFeel3;
+    juce::LookAndFeel_V4 lookAndFeel4;
+    
+    juce::Label wetDryLabel;
+    juce::Label modFreqLabel;
+    
     
     juce::ComboBox effectSelector;
 
