@@ -44,9 +44,12 @@ private:
     
     juce::Label wetDryLabel;
     juce::Label modFreqLabel;
+    juce::Label modSelectLabel;
     
+    juce::Label title;
+
     
-    juce::ComboBox effectSelector;
+    juce::ComboBox modWaveSelector;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HomeworkProjectAudioProcessorEditor)
 };
