@@ -11,8 +11,7 @@
 #include "LargeKnob.h"
 
 
-void LargeKnob::drawRotarySlider (juce::Graphics& g, int x, int y, int width, int height, float sliderPos, const float rotaryStartAngle, const float
-                       rotaryEndAngle, juce::Slider& slider){
+void LargeKnob::drawRotarySlider (juce::Graphics& g, int x, int y, int width, int height, float sliderPos, const float rotaryStartAngle, const float rotaryEndAngle, juce::Slider& slider){
     
     const float angle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
     

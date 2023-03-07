@@ -21,14 +21,16 @@ HomeworkProjectAudioProcessorEditor::HomeworkProjectAudioProcessorEditor (Homewo
     
     
     slider1.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
-    slider1.setBounds(50, 50, 200, 200);
-    slider1.setTextBoxStyle(juce::Slider::NoTextBox, false, 0,0);
-    slider1.setLookAndFeel(&largeKnobLNF);
+    slider1.setBounds(100, 250, 200, 200);
+    slider1.setRange(0, 100);
+    slider1.setTextBoxStyle(juce::Slider::TextBoxAbove, false, 50,30);
+    slider1.setLookAndFeel(&smallKnobLNF);
     addAndMakeVisible(slider1);
     
     slider2.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
-    slider2.setBounds(300, 300, 100, 100);
-    slider2.setTextBoxStyle(juce::Slider::NoTextBox, false, 0,0);
+    slider2.setBounds(250, 250, 200, 200);
+    slider2.setRange(10, 500);
+    slider2.setTextBoxStyle(juce::Slider::TextBoxAbove, false, 50,30);
     slider2.setLookAndFeel(&smallKnobLNF);
     addAndMakeVisible(slider2);
     

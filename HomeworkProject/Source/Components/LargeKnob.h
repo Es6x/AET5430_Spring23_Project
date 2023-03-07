@@ -12,7 +12,7 @@
 
 #include <JuceHeader.h>
 
-class LargeKnob : public juce::LookAndFeel_V3{
+class LargeKnob : public juce::LookAndFeel_V4{
     
 public:
     
