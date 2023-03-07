@@ -20,35 +20,37 @@ HomeworkProjectAudioProcessorEditor::HomeworkProjectAudioProcessorEditor (Homewo
 
     
     
-    slider1.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
-    slider1.setBounds(5, 205, 175, 175);
-    slider1.setRange(0, 100, 1);
-    slider1.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50,30);
-    slider1.setLookAndFeel(&lookAndFeel4);
-    slider1.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::cyan.darker(0.2));
-    slider1.setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, juce::Colours::grey);
-    slider1.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::white);
-    slider1.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::grey);
-    addAndMakeVisible(slider1);
+    wetDrySlider.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
+    wetDrySlider.setBounds(5, 205, 175, 175);
+    wetDrySlider.setRange(0, 100, 1);
+    wetDrySlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50,30);
+    wetDrySlider.setLookAndFeel(&lookAndFeel4);
+    wetDrySlider.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::cyan.darker(0.2));
+    wetDrySlider.setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, juce::Colours::grey);
+    wetDrySlider.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::white);
+    wetDrySlider.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::grey);
+    wetDrySlider.addListener(this);
+    addAndMakeVisible(wetDrySlider);
     
     wetDryLabel.setText("Wet Mix %", juce::dontSendNotification);
-    wetDryLabel.attachToComponent(&slider1, false);
+    wetDryLabel.attachToComponent(&wetDrySlider, false);
     wetDryLabel.setJustificationType(juce::Justification::centred);
     addAndMakeVisible(wetDryLabel);
     
-    slider2.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
-    slider2.setBounds(220, 205, 175, 175);
-    slider2.setRange(10, 500, 1);
-    slider2.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50,30);
-    slider2.setLookAndFeel(&lookAndFeel4);
-    slider2.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::cyan.darker(0.2));
-    slider2.setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, juce::Colours::grey);
-    slider2.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::white);
-    slider2.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::grey);
-    addAndMakeVisible(slider2);
+    modFreqSlider.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
+    modFreqSlider.setBounds(220, 205, 175, 175);
+    modFreqSlider.setRange(1, 500, 1);
+    modFreqSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50,30);
+    modFreqSlider.setLookAndFeel(&lookAndFeel4);
+    modFreqSlider.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::cyan.darker(0.2));
+    modFreqSlider.setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, juce::Colours::grey);
+    modFreqSlider.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::white);
+    modFreqSlider.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::grey);
+    modFreqSlider.addListener(this);
+    addAndMakeVisible(modFreqSlider);
     
     modFreqLabel.setText("Modulation Frequency (Hz)", juce::dontSendNotification);
-    modFreqLabel.attachToComponent(&slider2, false);
+    modFreqLabel.attachToComponent(&modFreqSlider, false);
     modFreqLabel.setJustificationType(juce::Justification::centred);
     addAndMakeVisible(modFreqLabel);
     
@@ -96,6 +98,15 @@ void HomeworkProjectAudioProcessorEditor::resized()
 
 void HomeworkProjectAudioProcessorEditor::comboBoxChanged (juce::ComboBox *comboBoxThatHasChanged){
     if (comboBoxThatHasChanged == &modWaveSelector){
-        audioProcessor.setEffect(modWaveSelector.getSelectedId());
+        audioProcessor.setModWaveSelection(modWaveSelector.getSelectedId());
+    }
+}
+
+void HomeworkProjectAudioProcessorEditor::sliderValueChanged(juce::Slider* slider){
+    if (slider == &wetDrySlider){
+        audioProcessor.setWetMix(wetDrySlider.getValue());
+    }
+    else{
+        audioProcessor.setModFreq(modFreqSlider.getValue());
     }
 }

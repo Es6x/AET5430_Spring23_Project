@@ -58,14 +58,15 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-    void setEffect(int effectNum){
-        if (effectNum == 1){
-            effect = std::unique_ptr<AudioEffect> ();
-        }
-        else{
-            effect = std::unique_ptr<GainEffect> ();
-        }
-    };
+    int modFreq;
+    void setModFreq(int value);
+    
+    int wetMix;
+    void setWetMix(int value);
+    
+    int modWaveSelection;
+    void setModWaveSelection(int value);
+    
     
 private:
     

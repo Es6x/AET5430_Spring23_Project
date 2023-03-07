@@ -17,7 +17,8 @@
 /**
 */
 class HomeworkProjectAudioProcessorEditor  : public juce::AudioProcessorEditor,
-                                                public juce::ComboBox::Listener
+                                                public juce::ComboBox::Listener,
+                                                public juce::Slider::Listener
 {
 public:
     HomeworkProjectAudioProcessorEditor (HomeworkProjectAudioProcessor&);
@@ -27,6 +28,7 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
     virtual void comboBoxChanged (juce::ComboBox *comboBoxThatHasChanged) override;
+    virtual void sliderValueChanged(juce::Slider* slider) override;
 
 private:
     // This reference is provided as a quick way for your editor to
@@ -35,8 +37,8 @@ private:
     
     juce::Image bgImage;
     
-    juce::Slider slider1;
-    juce::Slider slider2;
+    juce::Slider wetDrySlider;
+    juce::Slider modFreqSlider;
     
     LargeKnob largeKnobLNF;
     SmallKnob smallKnobLNF;

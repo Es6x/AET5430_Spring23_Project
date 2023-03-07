@@ -184,6 +184,20 @@ void HomeworkProjectAudioProcessor::setStateInformation (const void* data, int s
     // whose contents will have been created by the getStateInformation() call.
 }
 
+void HomeworkProjectAudioProcessor::setModWaveSelection(int value){
+    modWaveSelection = value;
+}
+
+void HomeworkProjectAudioProcessor::setModFreq(int value){
+    modFreq = value;
+}
+
+
+void HomeworkProjectAudioProcessor::setWetMix(int value){
+    wetMix = value;
+}
+
+
 //==============================================================================
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
