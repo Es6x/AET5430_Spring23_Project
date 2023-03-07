@@ -10,8 +10,7 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
-#include "Components/LargeKnob.h"
-#include "Components/SmallKnob.h"
+
 
 //==============================================================================
 /**
@@ -35,22 +34,21 @@ private:
     // access the processor object that created it.
     HomeworkProjectAudioProcessor& audioProcessor;
     
-    juce::Image bgImage;
-    
+    //create knobs
     juce::Slider wetDrySlider;
     juce::Slider modFreqSlider;
     
-    LargeKnob largeKnobLNF;
-    SmallKnob smallKnobLNF;
+    //set look and feel
     juce::LookAndFeel_V4 lookAndFeel4;
     
+    //create component labels
     juce::Label wetDryLabel;
     juce::Label modFreqLabel;
     juce::Label modSelectLabel;
     
     juce::Label title;
-
     
+    //create drop down menu
     juce::ComboBox modWaveSelector;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HomeworkProjectAudioProcessorEditor)

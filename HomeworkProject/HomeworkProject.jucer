@@ -11,23 +11,6 @@
       <FILE id="wpB9j0" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="e4DaaN" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
-      <GROUP id="{F2B95437-EE56-D571-3256-4FCCA6D3DAA8}" name="BinaryData">
-        <FILE id="rfIQHM" name="background.png" compile="0" resource="1" file="Source/BinaryData/background.png"/>
-        <FILE id="jt5h17" name="knob_large.png" compile="0" resource="1" file="Source/BinaryData/knob_large.png"/>
-        <FILE id="JQyBkA" name="knob_small.png" compile="0" resource="1" file="Source/BinaryData/knob_small.png"/>
-      </GROUP>
-      <GROUP id="{6A8B7599-0950-BBC8-CA79-97A26673BC2A}" name="DSP">
-        <FILE id="xfx5dI" name="AudioEffect.cpp" compile="1" resource="0" file="Source/DSP/AudioEffect.cpp"/>
-        <FILE id="qvLzEY" name="AudioEffect.h" compile="0" resource="0" file="Source/DSP/AudioEffect.h"/>
-        <FILE id="vR7Km0" name="GainEffect.cpp" compile="1" resource="0" file="Source/DSP/GainEffect.cpp"/>
-        <FILE id="bwPxwV" name="GainEffect.h" compile="0" resource="0" file="Source/DSP/GainEffect.h"/>
-      </GROUP>
-      <GROUP id="{D28A1E74-AAD0-B1AD-15E8-EBF4EDD34B57}" name="Components">
-        <FILE id="Ncljjz" name="LargeKnob.cpp" compile="1" resource="0" file="Source/Components/LargeKnob.cpp"/>
-        <FILE id="dYT9cW" name="LargeKnob.h" compile="0" resource="0" file="Source/Components/LargeKnob.h"/>
-        <FILE id="XyMayh" name="SmallKnob.cpp" compile="1" resource="0" file="Source/Components/SmallKnob.cpp"/>
-        <FILE id="A0QZYi" name="SmallKnob.h" compile="0" resource="0" file="Source/Components/SmallKnob.h"/>
-      </GROUP>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>

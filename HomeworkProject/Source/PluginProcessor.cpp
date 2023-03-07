@@ -153,7 +153,7 @@ void HomeworkProjectAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
     // interleaved by keeping the same state.
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
-        auto* channelData = buffer.getWritePointer (channel);
+        //auto* channelData = buffer.getWritePointer (channel);
 
         // ..do something to the data...
     }
@@ -184,15 +184,17 @@ void HomeworkProjectAudioProcessor::setStateInformation (const void* data, int s
     // whose contents will have been created by the getStateInformation() call.
 }
 
+//update dropdown value
 void HomeworkProjectAudioProcessor::setModWaveSelection(int value){
     modWaveSelection = value;
 }
 
+//update modulation frequency value
 void HomeworkProjectAudioProcessor::setModFreq(int value){
     modFreq = value;
 }
 
-
+//update wet/dry value
 void HomeworkProjectAudioProcessor::setWetMix(int value){
     wetMix = value;
 }

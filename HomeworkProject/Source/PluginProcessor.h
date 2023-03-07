@@ -9,8 +9,7 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "DSP/AudioEffect.h"
-#include "DSP/GainEffect.h"
+
 
 //==============================================================================
 /**
@@ -58,6 +57,8 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    //==============================================================================
+    //user controls
     int modFreq;
     void setModFreq(int value);
     
@@ -70,7 +71,6 @@ public:
     
 private:
     
-    std::unique_ptr<AudioEffect> effect;
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HomeworkProjectAudioProcessor)

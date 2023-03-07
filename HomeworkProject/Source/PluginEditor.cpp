@@ -19,7 +19,7 @@ HomeworkProjectAudioProcessorEditor::HomeworkProjectAudioProcessorEditor (Homewo
     
 
     
-    
+    //customize wet/dry % knob
     wetDrySlider.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
     wetDrySlider.setBounds(5, 205, 175, 175);
     wetDrySlider.setRange(0, 100, 1);
@@ -32,11 +32,13 @@ HomeworkProjectAudioProcessorEditor::HomeworkProjectAudioProcessorEditor (Homewo
     wetDrySlider.addListener(this);
     addAndMakeVisible(wetDrySlider);
     
+    //attatch wet/dry label
     wetDryLabel.setText("Wet Mix %", juce::dontSendNotification);
     wetDryLabel.attachToComponent(&wetDrySlider, false);
     wetDryLabel.setJustificationType(juce::Justification::centred);
     addAndMakeVisible(wetDryLabel);
     
+    //customize modulation frequency knob
     modFreqSlider.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
     modFreqSlider.setBounds(220, 205, 175, 175);
     modFreqSlider.setRange(1, 500, 1);
@@ -49,11 +51,13 @@ HomeworkProjectAudioProcessorEditor::HomeworkProjectAudioProcessorEditor (Homewo
     modFreqSlider.addListener(this);
     addAndMakeVisible(modFreqSlider);
     
+    //attatch modulation frequency label
     modFreqLabel.setText("Modulation Frequency (Hz)", juce::dontSendNotification);
     modFreqLabel.attachToComponent(&modFreqSlider, false);
     modFreqLabel.setJustificationType(juce::Justification::centred);
     addAndMakeVisible(modFreqLabel);
     
+    //customize dropdown menu
     modWaveSelector.addListener(this);
     modWaveSelector.addItem("Sine",1);
     modWaveSelector.addItem("Square",2);
@@ -65,11 +69,13 @@ HomeworkProjectAudioProcessorEditor::HomeworkProjectAudioProcessorEditor (Homewo
     modWaveSelector.setSelectedId(1);
     addAndMakeVisible(modWaveSelector);
     
+    //attatch dropdown label
     modSelectLabel.setText("Modulation Wave Type", juce::dontSendNotification);
     modSelectLabel.attachToComponent(&modWaveSelector, false);
     modSelectLabel.setJustificationType(juce::Justification::centred);
     addAndMakeVisible(modSelectLabel);
     
+    //customize plugin title
     title.setText("Evan's Ring Modulator", juce::dontSendNotification);
     title.setBounds(0, 10, 400, 35);
     title.setFont (juce::Font (35.0f, juce::Font::bold));
@@ -95,13 +101,14 @@ void HomeworkProjectAudioProcessorEditor::resized()
     // subcomponents in your editor..
 }
 
-
+//update dropdown value
 void HomeworkProjectAudioProcessorEditor::comboBoxChanged (juce::ComboBox *comboBoxThatHasChanged){
     if (comboBoxThatHasChanged == &modWaveSelector){
         audioProcessor.setModWaveSelection(modWaveSelector.getSelectedId());
     }
 }
 
+//update knob values
 void HomeworkProjectAudioProcessorEditor::sliderValueChanged(juce::Slider* slider){
     if (slider == &wetDrySlider){
         audioProcessor.setWetMix(wetDrySlider.getValue());
