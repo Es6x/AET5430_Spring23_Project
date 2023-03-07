@@ -15,18 +15,20 @@ HomeworkProjectAudioProcessorEditor::HomeworkProjectAudioProcessorEditor (Homewo
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (415, 415);
+    setSize (400, 400);
     
-    bgImage = juce::ImageCache::getFromMemory(BinaryData::background_png, BinaryData::background_pngSize);
+
     
     
     slider1.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
-    slider1.setBounds(10, 200, 200, 200);
+    slider1.setBounds(5, 205, 175, 175);
     slider1.setRange(0, 100, 1);
     slider1.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50,30);
     slider1.setLookAndFeel(&lookAndFeel4);
-    slider1.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::cyan);
-    slider1.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::black);
+    slider1.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::cyan.darker(0.2));
+    slider1.setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, juce::Colours::grey);
+    slider1.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::white);
+    slider1.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::grey);
     addAndMakeVisible(slider1);
     
     wetDryLabel.setText("Wet Mix %", juce::dontSendNotification);
@@ -35,12 +37,14 @@ HomeworkProjectAudioProcessorEditor::HomeworkProjectAudioProcessorEditor (Homewo
     addAndMakeVisible(wetDryLabel);
     
     slider2.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
-    slider2.setBounds(210, 200, 200, 200);
+    slider2.setBounds(220, 205, 175, 175);
     slider2.setRange(10, 500, 1);
     slider2.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50,30);
     slider2.setLookAndFeel(&lookAndFeel4);
-    slider2.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::cyan);
-    slider2.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::black);
+    slider2.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::cyan.darker(0.2));
+    slider2.setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, juce::Colours::grey);
+    slider2.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::white);
+    slider2.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::grey);
     addAndMakeVisible(slider2);
     
     modFreqLabel.setText("Modulation Frequency (Hz)", juce::dontSendNotification);
@@ -50,10 +54,13 @@ HomeworkProjectAudioProcessorEditor::HomeworkProjectAudioProcessorEditor (Homewo
     
     modWaveSelector.addListener(this);
     modWaveSelector.addItem("Sine",1);
-    modWaveSelector.addItem("Triangle",2);
-    modWaveSelector.addItem("Square",3);
-    modWaveSelector.setBounds(140, 120, 130, 30);
+    modWaveSelector.addItem("Square",2);
+    modWaveSelector.addItem("Triangle",3);
+    modWaveSelector.setBounds(135, 110, 130, 30);
     modWaveSelector.setJustificationType(juce::Justification::centred);
+    modWaveSelector.setColour(juce::ComboBox::ColourIds::backgroundColourId, juce::Colours::grey.darker(0.2));
+    modWaveSelector.setColour(juce::ComboBox::ColourIds::outlineColourId, juce::Colours::cyan.darker(0.6));
+    modWaveSelector.setSelectedId(1);
     addAndMakeVisible(modWaveSelector);
     
     modSelectLabel.setText("Modulation Wave Type", juce::dontSendNotification);
@@ -62,9 +69,9 @@ HomeworkProjectAudioProcessorEditor::HomeworkProjectAudioProcessorEditor (Homewo
     addAndMakeVisible(modSelectLabel);
     
     title.setText("Evan's Ring Modulator", juce::dontSendNotification);
-    title.setBounds(0, 10, 415, 35);
+    title.setBounds(0, 10, 400, 35);
     title.setFont (juce::Font (35.0f, juce::Font::bold));
-    title.setColour(juce::Label::ColourIds::textColourId, juce::Colours::cyan);
+    title.setColour(juce::Label::ColourIds::textColourId, juce::Colours::cyan.darker(0.2));
     title.setJustificationType(juce::Justification::centred);
     addAndMakeVisible(title);
 }
@@ -77,7 +84,7 @@ HomeworkProjectAudioProcessorEditor::~HomeworkProjectAudioProcessorEditor()
 void HomeworkProjectAudioProcessorEditor::paint (juce::Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.drawImageAt(bgImage,0,0);
+    g.fillAll(juce::Colours::black.brighter(0.1));
 }
 
 void HomeworkProjectAudioProcessorEditor::resized()
