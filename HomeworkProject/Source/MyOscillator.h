@@ -16,11 +16,6 @@ class MyOscillator : public juce::dsp::Oscillator<float> {
 
 public:
 
-    
-    
-    
-    void setWetMix(int mixValue);
-    
     void setModWaveSelection(int wave);
     
     int choice = 0;

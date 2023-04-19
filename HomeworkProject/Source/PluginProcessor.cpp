@@ -155,11 +155,31 @@ void HomeworkProjectAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
+    dryBuffer = buffer;
     juce::dsp::AudioBlock<float> audioBlock {buffer};
     
     osc.process(juce::dsp::ProcessContextReplacing<float> (audioBlock));
     gainDSP.process(juce::dsp::ProcessContextReplacing<float> (audioBlock));
+     
+    audioBlock.copyTo(buffer);
+    
+    for (int channel = 0; channel < totalNumInputChannels; ++channel)
+    {
+        // Have a loop to go through each of the samples in our signal
+        for (int n = 0 ; n < buffer.getNumSamples() ; ++n)
+        {
+            float x = buffer.getWritePointer(channel) [n];
+            float w = dryBuffer.getWritePointer(channel) [n];
+            float y = (mixWet / 100) * (x * w) + mixDry / 100 * x;
 
+//            x = distortion.processSample(x);
+//            x = gainEffect.processSample(x, channel);
+
+            // scales amplitude by gain
+            buffer.getWritePointer(channel) [n] = y;
+        }
+    }
+    
     
     
     
@@ -204,7 +224,12 @@ void HomeworkProjectAudioProcessor::setStateInformation (const void* data, int s
 
 //update wet/dry value
 void HomeworkProjectAudioProcessor::setWetMix(int mixValue){
-    mix = mixValue;
+    mixWet = mixValue;
+    mixDry = 100-mixWet;
+}
+
+void HomeworkProjectAudioProcessor::setOscFreq(int freqValue){
+    osc.setFrequency(freqValue);
 }
 
 //==============================================================================

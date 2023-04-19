@@ -60,15 +60,19 @@ public:
     //==============================================================================
 
     void setWetMix(int mixValue);
+    int mixWet = 50;
+    int mixDry = 50;
+    
+    void setOscFreq(int freqValue);
+    float oscFreq = 250;
     
     MyOscillator osc;
 
 private:
-    
+    juce::AudioBuffer<float> dryBuffer;
     juce::dsp::Gain<float> gainDSP;
 
     
-    int mix = 50;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HomeworkProjectAudioProcessor)
 };

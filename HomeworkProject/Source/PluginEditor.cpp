@@ -23,6 +23,7 @@ HomeworkProjectAudioProcessorEditor::HomeworkProjectAudioProcessorEditor (Homewo
     wetDrySlider.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
     wetDrySlider.setBounds(5, 205, 175, 175);
     wetDrySlider.setRange(0, 100, 1);
+    wetDrySlider.setValue(50);
     wetDrySlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50,30);
     wetDrySlider.setLookAndFeel(&lookAndFeel4);
     wetDrySlider.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::cyan.darker(0.2));
@@ -42,6 +43,7 @@ HomeworkProjectAudioProcessorEditor::HomeworkProjectAudioProcessorEditor (Homewo
     modFreqSlider.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
     modFreqSlider.setBounds(220, 205, 175, 175);
     modFreqSlider.setRange(1, 500, 1);
+    modFreqSlider.setValue(250);
     modFreqSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50,30);
     modFreqSlider.setLookAndFeel(&lookAndFeel4);
     modFreqSlider.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::cyan.darker(0.2));
@@ -115,6 +117,6 @@ void HomeworkProjectAudioProcessorEditor::sliderValueChanged(juce::Slider* slide
         audioProcessor.setWetMix(wetDrySlider.getValue());
     }
     else{
-        audioProcessor.osc.setFrequency(modFreqSlider.getValue());
+        audioProcessor.setOscFreq(modFreqSlider.getValue());
     }
 }
