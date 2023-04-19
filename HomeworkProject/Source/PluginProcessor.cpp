@@ -100,10 +100,12 @@ void HomeworkProjectAudioProcessor::prepareToPlay (double sampleRate, int sample
     spec.numChannels = getTotalNumOutputChannels();
     
     osc.prepare(spec);
-    gain.prepare(spec);
+    osc.setModWaveSelection(1);
+    osc.setFrequency(250.f);
     
-    osc.setFrequency(220.f);
-    gain.setGainLinear(0.1f);
+    gainDSP.prepare(spec);
+    gainDSP.setGainLinear(0.01f);
+
 }
 
 void HomeworkProjectAudioProcessor::releaseResources()
@@ -154,8 +156,9 @@ void HomeworkProjectAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
         buffer.clear (i, 0, buffer.getNumSamples());
 
     juce::dsp::AudioBlock<float> audioBlock {buffer};
+    
     osc.process(juce::dsp::ProcessContextReplacing<float> (audioBlock));
-    gain.process(juce::dsp::ProcessContextReplacing<float> (audioBlock));
+    gainDSP.process(juce::dsp::ProcessContextReplacing<float> (audioBlock));
 
     
     
@@ -199,21 +202,10 @@ void HomeworkProjectAudioProcessor::setStateInformation (const void* data, int s
     // whose contents will have been created by the getStateInformation() call.
 }
 
-//update dropdown value
-void HomeworkProjectAudioProcessor::setModWaveSelection(int value){
-    modWaveSelection = value;
-}
-
-//update modulation frequency value
-void HomeworkProjectAudioProcessor::setModFreq(int value){
-    modFreq = value;
-}
-
 //update wet/dry value
-void HomeworkProjectAudioProcessor::setWetMix(int value){
-    wetMix = value;
+void HomeworkProjectAudioProcessor::setWetMix(int mixValue){
+    mix = mixValue;
 }
-
 
 //==============================================================================
 // This creates new instances of the plugin..

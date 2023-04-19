@@ -9,7 +9,7 @@
 #pragma once
 
 #include <JuceHeader.h>
-
+#include "MyOscillator.h"
 
 //==============================================================================
 /**
@@ -58,20 +58,17 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
     //==============================================================================
-    //user controls
-    int modFreq;
-    void setModFreq(int value);
+
+    void setWetMix(int mixValue);
     
-    int wetMix;
-    void setWetMix(int value);
-    
-    int modWaveSelection;
-    void setModWaveSelection(int value);
-    
-    
+    MyOscillator osc;
+
 private:
-    juce::dsp::Oscillator<float> osc { [](float x) {return std::sin(x); }};
-    juce::dsp::Gain<float> gain;
+    
+    juce::dsp::Gain<float> gainDSP;
+
+    
+    int mix = 50;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HomeworkProjectAudioProcessor)
 };
