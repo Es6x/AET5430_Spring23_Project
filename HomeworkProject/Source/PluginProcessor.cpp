@@ -94,8 +94,16 @@ void HomeworkProjectAudioProcessor::changeProgramName (int index, const juce::St
 //==============================================================================
 void HomeworkProjectAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+    juce::dsp::ProcessSpec spec;
+    spec.maximumBlockSize = samplesPerBlock;
+    spec.sampleRate = sampleRate;
+    spec.numChannels = getTotalNumOutputChannels();
+    
+    osc.prepare(spec);
+    gain.prepare(spec);
+    
+    osc.setFrequency(220.f);
+    gain.setGainLinear(0.1f);
 }
 
 void HomeworkProjectAudioProcessor::releaseResources()
@@ -145,6 +153,13 @@ void HomeworkProjectAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
+    juce::dsp::AudioBlock<float> audioBlock {buffer};
+    osc.process(juce::dsp::ProcessContextReplacing<float> (audioBlock));
+    gain.process(juce::dsp::ProcessContextReplacing<float> (audioBlock));
+
+    
+    
+    
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
     // Make sure to reset the state if your inner loop is processing
