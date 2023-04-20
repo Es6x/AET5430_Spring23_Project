@@ -107,7 +107,7 @@ void HomeworkProjectAudioProcessorEditor::resized()
 void HomeworkProjectAudioProcessorEditor::comboBoxChanged (juce::ComboBox *comboBoxThatHasChanged){
     if (comboBoxThatHasChanged == &modWaveSelector){
         
-        audioProcessor.osc.setModWaveSelection(modWaveSelector.getSelectedId());
+        //audioProcessor.mod.setModWaveSelection(modWaveSelector.getSelectedId());
     }
 }
 
@@ -117,6 +117,6 @@ void HomeworkProjectAudioProcessorEditor::sliderValueChanged(juce::Slider* slide
         audioProcessor.setWetMix(wetDrySlider.getValue()/100);
     }
     else{
-        audioProcessor.setOscFreq(modFreqSlider.getValue());
+        audioProcessor.setModFreq(modFreqSlider.getValue());
     }
 }

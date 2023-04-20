@@ -94,13 +94,8 @@ void HomeworkProjectAudioProcessor::changeProgramName (int index, const juce::St
 //==============================================================================
 void HomeworkProjectAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    juce::dsp::ProcessSpec spec;
-    spec.maximumBlockSize = samplesPerBlock;
-    spec.sampleRate = sampleRate;
-    spec.numChannels = getTotalNumOutputChannels();
-    
-    osc.prepareToPlay(spec);
-    
+    mod.prepareToPlay(sampleRate);
+    mod.setRate(250.f);
 }
 
 void HomeworkProjectAudioProcessor::releaseResources()
@@ -150,29 +145,20 @@ void HomeworkProjectAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
     
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
-
-    //save the incoming buffer before the oscillator processes it
-    
-    //convert to block
-    
-    juce::AudioBuffer<float> oscBuffer = osc.processBlock();
     
     //loop through all channels
     for (int channel = 0; channel < totalNumInputChannels; ++channel){
         
         // loop through each sample
         for (int n = 0 ; n < buffer.getNumSamples() ; ++n){
-            float x = buffer.getReadPointer(channel) [n];
-            float w = oscBuffer.getReadPointer(channel) [n];
-            float y = (mixWet * x * 0) + mixDry * x;
             
+            float x = buffer.getWritePointer(channel) [n];
+            float w = mod.processSample(x, channel);
+            float y = mixWet * w + mixDry * x;
 
            //write the new sample to the buffer
             
-            buffer.getWritePointer(channel) [n] = w;
-            //buffer.getWritePointer(channel) [n] = y;
-            
-
+            buffer.getWritePointer(channel) [n] = y;
         }
     }
 }
@@ -208,8 +194,8 @@ void HomeworkProjectAudioProcessor::setWetMix(float mixValue){
     mixDry = 1.f-mixWet;
 }
 
-void HomeworkProjectAudioProcessor::setOscFreq(int freqValue){
-    osc.setFrequency(freqValue);
+void HomeworkProjectAudioProcessor::setModFreq(int freqValue){
+    mod.setRate(freqValue);
 }
 
 //==============================================================================

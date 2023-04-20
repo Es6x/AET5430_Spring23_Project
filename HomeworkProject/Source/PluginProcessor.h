@@ -9,7 +9,7 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "MyOscillator.h"
+#include "Modulator.h"
 
 //==============================================================================
 /**
@@ -63,10 +63,10 @@ public:
     float mixWet = 0.5f;
     float mixDry = 0.5f;
     
-    void setOscFreq(int freqValue);
-    float oscFreq = 250;
+    void setModFreq(int freqValue);
+    float modFreq = 250;
     
-    MyOscillator osc;
+    Modulator mod;
 
 private:
     juce::AudioBuffer<float> dryBuffer;
