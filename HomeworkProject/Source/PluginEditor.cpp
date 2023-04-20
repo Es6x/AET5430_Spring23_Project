@@ -42,8 +42,8 @@ HomeworkProjectAudioProcessorEditor::HomeworkProjectAudioProcessorEditor (Homewo
     //customize modulation frequency knob
     modFreqSlider.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
     modFreqSlider.setBounds(220, 205, 175, 175);
-    modFreqSlider.setRange(1, 500, 1);
-    modFreqSlider.setValue(250);
+    modFreqSlider.setRange(1, 1000, 1);
+    modFreqSlider.setValue(500);
     modFreqSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50,30);
     modFreqSlider.setLookAndFeel(&lookAndFeel4);
     modFreqSlider.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::cyan.darker(0.2));
@@ -63,7 +63,7 @@ HomeworkProjectAudioProcessorEditor::HomeworkProjectAudioProcessorEditor (Homewo
     modWaveSelector.addListener(this);
     modWaveSelector.addItem("Sine",1);
     modWaveSelector.addItem("Square",2);
-    modWaveSelector.addItem("Triangle",3);
+    //modWaveSelector.addItem("Sawtooth",3);
     modWaveSelector.setBounds(135, 110, 130, 30);
     modWaveSelector.setJustificationType(juce::Justification::centred);
     modWaveSelector.setColour(juce::ComboBox::ColourIds::backgroundColourId, juce::Colours::grey.darker(0.2));
@@ -106,17 +106,19 @@ void HomeworkProjectAudioProcessorEditor::resized()
 //update dropdown value
 void HomeworkProjectAudioProcessorEditor::comboBoxChanged (juce::ComboBox *comboBoxThatHasChanged){
     if (comboBoxThatHasChanged == &modWaveSelector){
-        
-        //audioProcessor.mod.setModWaveSelection(modWaveSelector.getSelectedId());
+        audioProcessor.waveSelection = modWaveSelector.getSelectedId();
+        audioProcessor.mod.setModWaveSelection(audioProcessor.waveSelection);
     }
 }
 
 //update knob values
 void HomeworkProjectAudioProcessorEditor::sliderValueChanged(juce::Slider* slider){
     if (slider == &wetDrySlider){
-        audioProcessor.setWetMix(wetDrySlider.getValue()/100);
+        audioProcessor.mixWet = wetDrySlider.getValue() / 100;
+        audioProcessor.mixDry = 1.f - wetDrySlider.getValue() / 100;
     }
     else{
-        audioProcessor.setModFreq(modFreqSlider.getValue());
+        audioProcessor.modFreq = modFreqSlider.getValue();
+        audioProcessor.mod.setRate(audioProcessor.modFreq);
     }
 }

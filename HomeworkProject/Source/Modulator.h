@@ -19,9 +19,9 @@ public:
     
     void setRate(float freqHz);
     
-//    void setDepth(float depth);
-    
     void prepareToPlay(float sampleRate);
+    
+    void setModWaveSelection(int waveChoice);
     
 private:
     
@@ -37,5 +37,7 @@ private:
     float piX2 = (float) (M_PI * 2.f);
     
     void updateCurrentAngle(const int c);
+    
+    int waveType;
     
 };

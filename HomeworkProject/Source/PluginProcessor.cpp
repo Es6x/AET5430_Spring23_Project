@@ -94,8 +94,9 @@ void HomeworkProjectAudioProcessor::changeProgramName (int index, const juce::St
 //==============================================================================
 void HomeworkProjectAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
+    //prepare the modulator
     mod.prepareToPlay(sampleRate);
-    mod.setRate(250.f);
+    mod.setRate(500.f);
 }
 
 void HomeworkProjectAudioProcessor::releaseResources()
@@ -152,12 +153,16 @@ void HomeworkProjectAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
         // loop through each sample
         for (int n = 0 ; n < buffer.getNumSamples() ; ++n){
             
+            //get sample
             float x = buffer.getWritePointer(channel) [n];
+            
+            //modulate sample
             float w = mod.processSample(x, channel);
+            
+            //apply wet/dry gain
             float y = mixWet * w + mixDry * x;
 
            //write the new sample to the buffer
-            
             buffer.getWritePointer(channel) [n] = y;
         }
     }
@@ -193,7 +198,7 @@ void HomeworkProjectAudioProcessor::setWetMix(float mixValue){
     mixWet = mixValue;
     mixDry = 1.f-mixWet;
 }
-
+//update modulator frequency
 void HomeworkProjectAudioProcessor::setModFreq(int freqValue){
     mod.setRate(freqValue);
 }

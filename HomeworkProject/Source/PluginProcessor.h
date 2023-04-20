@@ -64,7 +64,9 @@ public:
     float mixDry = 0.5f;
     
     void setModFreq(int freqValue);
-    float modFreq = 250;
+    float modFreq = 500.f;
+    
+    int waveSelection = 1; //1 is sine, 2 is square
     
     Modulator mod;
 
