@@ -99,13 +99,8 @@ void HomeworkProjectAudioProcessor::prepareToPlay (double sampleRate, int sample
     spec.sampleRate = sampleRate;
     spec.numChannels = getTotalNumOutputChannels();
     
-    osc.prepare(spec);
-    osc.setModWaveSelection(1);
-    osc.setFrequency(250.f);
+    osc.prepareToPlay(spec);
     
-    gainDSP.prepare(spec);
-    gainDSP.setGainLinear(0.01f);
-
 }
 
 void HomeworkProjectAudioProcessor::releaseResources()
@@ -152,48 +147,33 @@ void HomeworkProjectAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
     // This is here to avoid people getting screaming feedback
     // when they first compile a plugin, but obviously you don't need to keep
     // this code if your algorithm always overwrites all the output channels.
+    
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    dryBuffer = buffer;
-    juce::dsp::AudioBlock<float> audioBlock {buffer};
+    //save the incoming buffer before the oscillator processes it
     
-    osc.process(juce::dsp::ProcessContextReplacing<float> (audioBlock));
-    gainDSP.process(juce::dsp::ProcessContextReplacing<float> (audioBlock));
-     
-    audioBlock.copyTo(buffer);
+    //convert to block
     
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        // Have a loop to go through each of the samples in our signal
-        for (int n = 0 ; n < buffer.getNumSamples() ; ++n)
-        {
-            float x = buffer.getWritePointer(channel) [n];
-            float w = dryBuffer.getWritePointer(channel) [n];
-            float y = (mixWet / 100) * (x * w) + mixDry / 100 * x;
+    juce::AudioBuffer<float> oscBuffer = osc.processBlock();
+    
+    //loop through all channels
+    for (int channel = 0; channel < totalNumInputChannels; ++channel){
+        
+        // loop through each sample
+        for (int n = 0 ; n < buffer.getNumSamples() ; ++n){
+            float x = buffer.getReadPointer(channel) [n];
+            float w = oscBuffer.getReadPointer(channel) [n];
+            float y = (mixWet * x * 0) + mixDry * x;
+            
 
-//            x = distortion.processSample(x);
-//            x = gainEffect.processSample(x, channel);
+           //write the new sample to the buffer
+            
+            buffer.getWritePointer(channel) [n] = w;
+            //buffer.getWritePointer(channel) [n] = y;
+            
 
-            // scales amplitude by gain
-            buffer.getWritePointer(channel) [n] = y;
         }
-    }
-    
-    
-    
-    
-    // This is the place where you'd normally do the guts of your plugin's
-    // audio processing...
-    // Make sure to reset the state if your inner loop is processing
-    // the samples and the outer loop is handling the channels.
-    // Alternatively, you can process the samples with the channels
-    // interleaved by keeping the same state.
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        //auto* channelData = buffer.getWritePointer (channel);
-
-        // ..do something to the data...
     }
 }
 
@@ -223,9 +203,9 @@ void HomeworkProjectAudioProcessor::setStateInformation (const void* data, int s
 }
 
 //update wet/dry value
-void HomeworkProjectAudioProcessor::setWetMix(int mixValue){
+void HomeworkProjectAudioProcessor::setWetMix(float mixValue){
     mixWet = mixValue;
-    mixDry = 100-mixWet;
+    mixDry = 1.f-mixWet;
 }
 
 void HomeworkProjectAudioProcessor::setOscFreq(int freqValue){

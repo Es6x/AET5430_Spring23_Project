@@ -16,11 +16,20 @@ class MyOscillator : public juce::dsp::Oscillator<float> {
 
 public:
 
+    void prepareToPlay(juce::dsp::ProcessSpec spec);
+
+    juce::AudioBuffer<float> processBlock ();
+    
     void setModWaveSelection(int wave);
     
-    int choice = 0;
+    
+    
+    int choice = 1;
 
 private:
-    
-    float mix = 50;
+    juce::dsp::Gain<float> gainDSP;
+
+    double fs;
+    int numSamples;
+    int numChannels;
 };

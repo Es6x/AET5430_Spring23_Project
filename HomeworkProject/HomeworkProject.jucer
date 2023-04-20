@@ -11,18 +11,18 @@
       <FILE id="wpB9j0" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="e4DaaN" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
-      <FILE id="ebFUxO" name="RingMod.cpp" compile="1" resource="0" file="Source/RingMod.cpp"/>
-      <FILE id="gdjMeK" name="RingMod.h" compile="0" resource="0" file="Source/RingMod.h"/>
       <FILE id="c9y9qx" name="MyOscillator.cpp" compile="1" resource="0"
             file="Source/MyOscillator.cpp"/>
       <FILE id="d6BKkl" name="MyOscillator.h" compile="0" resource="0" file="Source/MyOscillator.h"/>
+      <FILE id="l4pC8b" name="Modulator.cpp" compile="1" resource="0" file="Source/Modulator.cpp"/>
+      <FILE id="NEqvsJ" name="Modulator.h" compile="0" resource="0" file="Source/Modulator.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="HomeworkProject"/>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="HomeworkProject" auBinaryLocation="/Library/Audio/Plug-Ins/Components"/>
         <CONFIGURATION isDebug="0" name="Release" targetName="HomeworkProject"/>
       </CONFIGURATIONS>
       <MODULEPATHS>

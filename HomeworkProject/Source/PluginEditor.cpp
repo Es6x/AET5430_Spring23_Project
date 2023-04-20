@@ -114,7 +114,7 @@ void HomeworkProjectAudioProcessorEditor::comboBoxChanged (juce::ComboBox *combo
 //update knob values
 void HomeworkProjectAudioProcessorEditor::sliderValueChanged(juce::Slider* slider){
     if (slider == &wetDrySlider){
-        audioProcessor.setWetMix(wetDrySlider.getValue());
+        audioProcessor.setWetMix(wetDrySlider.getValue()/100);
     }
     else{
         audioProcessor.setOscFreq(modFreqSlider.getValue());

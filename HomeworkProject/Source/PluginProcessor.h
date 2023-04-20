@@ -59,9 +59,9 @@ public:
 
     //==============================================================================
 
-    void setWetMix(int mixValue);
-    int mixWet = 50;
-    int mixDry = 50;
+    void setWetMix(float mixValue);
+    float mixWet = 0.5f;
+    float mixDry = 0.5f;
     
     void setOscFreq(int freqValue);
     float oscFreq = 250;
@@ -70,7 +70,6 @@ public:
 
 private:
     juce::AudioBuffer<float> dryBuffer;
-    juce::dsp::Gain<float> gainDSP;
 
     
     //==============================================================================

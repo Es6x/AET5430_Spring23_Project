@@ -10,6 +10,31 @@
 
 #include "MyOscillator.h"
 
+void MyOscillator::prepareToPlay(juce::dsp::ProcessSpec spec){
+    fs = spec.sampleRate;
+    numSamples = spec.maximumBlockSize;
+    numChannels = spec.numChannels;
+    prepare(spec);
+    setModWaveSelection(choice);
+    setFrequency(250.f);
+    
+    gainDSP.prepare(spec);
+    gainDSP.setGainLinear(0.001f);
+}
+
+juce::AudioBuffer<float> MyOscillator::processBlock (){
+    juce::AudioBuffer<float> oscBuffer = juce::AudioBuffer<float>(numChannels, numSamples);
+    juce::dsp::AudioBlock<float> audioBlock {oscBuffer};
+    
+    process(juce::dsp::ProcessContextReplacing<float> (audioBlock));
+    gainDSP.process(juce::dsp::ProcessContextReplacing<float> (audioBlock));
+    
+    audioBlock.copyTo(oscBuffer);
+    return oscBuffer;
+}
+
+
+
 void MyOscillator::setModWaveSelection(int wave){
     choice = wave-1;
     switch(choice){
