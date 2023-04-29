@@ -63,7 +63,7 @@ HomeworkProjectAudioProcessorEditor::HomeworkProjectAudioProcessorEditor (Homewo
     modWaveSelector.addListener(this);
     modWaveSelector.addItem("Sine",1);
     modWaveSelector.addItem("Square",2);
-    //modWaveSelector.addItem("Sawtooth",3);
+    modWaveSelector.addItem("Sawtooth",3);
     modWaveSelector.setBounds(135, 110, 130, 30);
     modWaveSelector.setJustificationType(juce::Justification::centred);
     modWaveSelector.setColour(juce::ComboBox::ColourIds::backgroundColourId, juce::Colours::grey.darker(0.2));

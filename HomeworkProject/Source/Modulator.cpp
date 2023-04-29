@@ -29,23 +29,10 @@ float Modulator::processSample(float x, const int c){
             }
             break;
         }
-            
-//        case 2:{
-//            if (currentAngle[c] < M_PI/2)
-//                {
-//                    wavevalue = 2 * currentAngle[c];
-//                }
-//            else if (currentAngle[c] < M_PI)
-//                {
-//                    wavevalue = 2 * currentAngle[c] - 2.f;
-//                }
-//            else if (currentAngle[c] < 3*M_PI/4){
-//                wavevalue = 0;
-//            }
-//            else
-//                wavevalue = 0;
-//            break;
-//        }
+        case 2:{ //sawtooth wave
+            wavevalue = currentAngle[c] / piX2 - 1;
+            break;
+        }
     }
     
     //modulate the sample by the respective value in the selected wave
