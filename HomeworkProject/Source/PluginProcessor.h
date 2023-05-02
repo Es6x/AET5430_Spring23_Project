@@ -71,10 +71,6 @@ public:
     
     Modulator mod;
 
-private:
-    juce::AudioBuffer<float> dryBuffer;
-
-public:
     juce::AudioProcessorValueTreeState state;
     
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();

@@ -44,9 +44,6 @@ private:
     
     //create drop down menu
     juce::ComboBox modWaveSelector;
-
-    
-   
     
     //create component labels
     juce::Label wetDryLabel;
@@ -57,6 +54,7 @@ private:
     
    
     public:
+    //create parameters for plugin
     std::vector<std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment>> mixSliderAttatchment;
     
     std::vector<std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment>> freqSliderAttatchment;

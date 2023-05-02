@@ -110,7 +110,6 @@ void HomeworkProjectAudioProcessor::prepareToPlay (double sampleRate, int sample
 {
     //prepare the modulator
     mod.prepareToPlay(sampleRate);
-    //mod.setRate(500.f);
 }
 
 void HomeworkProjectAudioProcessor::releaseResources()
@@ -161,7 +160,7 @@ void HomeworkProjectAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
     
-    
+    //set new values for the buffer
     float mixValue = *state.getRawParameterValue("mixValue");
     setWetMix(mixValue);
     
@@ -207,25 +206,20 @@ juce::AudioProcessorEditor* HomeworkProjectAudioProcessor::createEditor()
 //==============================================================================
 void HomeworkProjectAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
-    
-    
+    //save the current settings
     auto currentState = state.copyState();
     std::unique_ptr<juce::XmlElement> xml (currentState.createXml());
     copyXmlToBinary(*xml, destData);
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
+   
 }
 
 void HomeworkProjectAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
+    //set settings based on last saved values
     std::unique_ptr<juce::XmlElement> xml (getXmlFromBinary(data, sizeInBytes));
     if (xml && xml->hasTagName(state.state.getType())){
         state.replaceState(juce::ValueTree::fromXml(*xml));
     }
-    
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
 }
 
 //update wet/dry value

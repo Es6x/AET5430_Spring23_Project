@@ -30,7 +30,6 @@ HomeworkProjectAudioProcessorEditor::HomeworkProjectAudioProcessorEditor (Homewo
     wetDrySlider.setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, juce::Colours::grey);
     wetDrySlider.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::white);
     wetDrySlider.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::grey);
-    //wetDrySlider.addListener(this);
     addAndMakeVisible(wetDrySlider);
     
     //attatch wet/dry label
@@ -50,7 +49,6 @@ HomeworkProjectAudioProcessorEditor::HomeworkProjectAudioProcessorEditor (Homewo
     modFreqSlider.setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, juce::Colours::grey);
     modFreqSlider.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::white);
     modFreqSlider.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::grey);
-    //modFreqSlider.addListener(this);
     addAndMakeVisible(modFreqSlider);
     
     //attatch modulation frequency label
@@ -60,7 +58,6 @@ HomeworkProjectAudioProcessorEditor::HomeworkProjectAudioProcessorEditor (Homewo
     addAndMakeVisible(modFreqLabel);
     
     //customize dropdown menu
-    //modWaveSelector.addListener(this);
     modWaveSelector.addItem("Sine",1);
     modWaveSelector.addItem("Sawtooth",2);
     modWaveSelector.addItem("Square",3);
@@ -87,7 +84,7 @@ HomeworkProjectAudioProcessorEditor::HomeworkProjectAudioProcessorEditor (Homewo
     title.setJustificationType(juce::Justification::centred);
     addAndMakeVisible(title);
     
-    
+    //attatch parameters to plugin components
     mixSliderAttatchment.emplace_back(new juce::AudioProcessorValueTreeState::SliderAttachment(audioProcessor.state, "mixValue", wetDrySlider) );
     freqSliderAttatchment.emplace_back(new juce::AudioProcessorValueTreeState::SliderAttachment(audioProcessor.state, "freqValue", modFreqSlider) );
     choiceAttatchment.emplace_back(new juce::AudioProcessorValueTreeState::ComboBoxAttachment(audioProcessor.state, "waveChoice", modWaveSelector));
@@ -110,23 +107,3 @@ void HomeworkProjectAudioProcessorEditor::resized()
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
 }
-
-////update dropdown value
-//void HomeworkProjectAudioProcessorEditor::comboBoxChanged (juce::ComboBox *comboBoxThatHasChanged){
-//    if (comboBoxThatHasChanged == &modWaveSelector){
-//        audioProcessor.waveSelection = modWaveSelector.getSelectedId();
-//        audioProcessor.mod.setModWaveSelection(audioProcessor.waveSelection);
-//    }
-//}
-//
-////update knob values
-//void HomeworkProjectAudioProcessorEditor::sliderValueChanged(juce::Slider* slider){
-//    if (slider == &wetDrySlider){
-//        audioProcessor.mixWet = wetDrySlider.getValue() / 100;
-//        audioProcessor.mixDry = 1.f - wetDrySlider.getValue() / 100;
-//    }
-//    else{
-//        audioProcessor.modFreq = modFreqSlider.getValue();
-//        audioProcessor.mod.setRate(audioProcessor.modFreq);
-//    }
-//}

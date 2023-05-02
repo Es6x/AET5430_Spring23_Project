@@ -28,10 +28,7 @@ private:
     float currentAngle[2] = {0.f}; // in radians, one angle for left and right
     
     float angleChange = 0.f;
-    
-//    float lfoAmp = 0.5f;
-//    float lfoOffset = 0.5f;
-    
+
     float Fs = 44100.f;
     
     float piX2 = (float) (M_PI * 2.f);
