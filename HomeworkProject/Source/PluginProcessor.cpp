@@ -20,13 +20,27 @@ HomeworkProjectAudioProcessor::HomeworkProjectAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ), state(*this, nullptr, "RingModParams", createParameterLayout())
 #endif
 {
 }
 
 HomeworkProjectAudioProcessor::~HomeworkProjectAudioProcessor()
 {
+}
+
+juce::AudioProcessorValueTreeState::ParameterLayout HomeworkProjectAudioProcessor::createParameterLayout(){
+    
+    std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
+    
+    
+    params.push_back(std::make_unique<juce::AudioParameterFloat>( juce::ParameterID("mixValue",1) ,"Mix %", juce::NormalisableRange<float> (0.f, 100.f), 50.f));
+    
+    params.push_back(std::make_unique<juce::AudioParameterFloat>( juce::ParameterID("freqValue",1),"Modulation Frequency", juce::NormalisableRange<float> (1.f, 1000.f), 500.f));
+    
+    params.push_back(std::make_unique<juce::AudioParameterChoice>(juce::ParameterID("waveChoice",1), "Modulation Type", juce::StringArray ("Sine","Sawtooth","Square","Triangle"), 1));
+    
+    return {params.begin(), params.end()};
 }
 
 //==============================================================================
@@ -147,6 +161,17 @@ void HomeworkProjectAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
     
+    
+    float mixValue = *state.getRawParameterValue("mixValue");
+    setWetMix(mixValue);
+    
+    float freqValue = *state.getRawParameterValue("freqValue");
+    setModFreq(freqValue);
+    
+    int choice = *state.getRawParameterValue("waveChoice");
+    mod.setModWaveSelection(choice);
+    
+    
     //loop through all channels
     for (int channel = 0; channel < totalNumInputChannels; ++channel){
         
@@ -200,7 +225,14 @@ void HomeworkProjectAudioProcessor::setWetMix(float mixValue){
 }
 //update modulator frequency
 void HomeworkProjectAudioProcessor::setModFreq(int freqValue){
-    mod.setRate(freqValue);
+    modFreq = freqValue;
+    mod.setRate(modFreq);
+}
+
+//update modulation wave type
+void HomeworkProjectAudioProcessor::setWaveSelection(int choice){
+    waveSelection = choice;
+    mod.setModWaveSelection(waveSelection);
 }
 
 //==============================================================================

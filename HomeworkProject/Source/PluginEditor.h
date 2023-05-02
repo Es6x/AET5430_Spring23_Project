@@ -15,9 +15,9 @@
 //==============================================================================
 /**
 */
-class HomeworkProjectAudioProcessorEditor  : public juce::AudioProcessorEditor,
-                                                public juce::ComboBox::Listener,
-                                                public juce::Slider::Listener
+class HomeworkProjectAudioProcessorEditor  : public juce::AudioProcessorEditor
+//                                                public juce::ComboBox::Listener,
+//                                                public juce::Slider::Listener
 {
 public:
     HomeworkProjectAudioProcessorEditor (HomeworkProjectAudioProcessor&);
@@ -26,8 +26,8 @@ public:
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
-    virtual void comboBoxChanged (juce::ComboBox *comboBoxThatHasChanged) override;
-    virtual void sliderValueChanged(juce::Slider* slider) override;
+//    virtual void comboBoxChanged (juce::ComboBox *comboBoxThatHasChanged) override;
+//    virtual void sliderValueChanged(juce::Slider* slider) override;
 
 private:
     // This reference is provided as a quick way for your editor to
@@ -37,6 +37,10 @@ private:
     //create knobs
     juce::Slider wetDrySlider;
     juce::Slider modFreqSlider;
+    
+    //create drop down menu
+    juce::ComboBox modWaveSelector;
+
     
     //set look and feel
     juce::LookAndFeel_V4 lookAndFeel4;
@@ -48,8 +52,14 @@ private:
     
     juce::Label title;
     
-    //create drop down menu
-    juce::ComboBox modWaveSelector;
+   
+    public:
+    std::vector<std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment>> mixSliderAttatchment;
+    
+    std::vector<std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment>> freqSliderAttatchment;
 
+    std::vector<std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment>> choiceAttatchment;
+
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HomeworkProjectAudioProcessorEditor)
 };

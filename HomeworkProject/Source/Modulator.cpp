@@ -33,10 +33,7 @@ float Modulator::processSample(float x, const int c){
             wavevalue = currentAngle[c] / M_PI - 1.f;
             break;
         }
-        case 3:{ //reverse sawtooth
-            wavevalue = -1.f * currentAngle[c] / M_PI +1;
-        }
-        case 4:{ //triangle wave
+        case 3:{ //triangle wave
             wavevalue = -2.f * abs(currentAngle[c] / M_PI - 1) + 1.f;
         }
     }

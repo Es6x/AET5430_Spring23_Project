@@ -66,14 +66,18 @@ public:
     void setModFreq(int freqValue);
     float modFreq = 500.f;
     
-    int waveSelection = 1; //1 is sine, 2 is square
+    void setWaveSelection(int choice);
+    int waveSelection = 1; //1 is sine, 2 is square, 3 is sawtooth, 4 is triangle
     
     Modulator mod;
 
 private:
     juce::AudioBuffer<float> dryBuffer;
 
+public:
+    juce::AudioProcessorValueTreeState state;
     
+    juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HomeworkProjectAudioProcessor)
 };
