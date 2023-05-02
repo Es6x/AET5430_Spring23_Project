@@ -67,7 +67,7 @@ public:
     float modFreq = 500.f;
     
     void setWaveSelection(int choice);
-    int waveSelection = 1; //1 is sine, 2 is square, 3 is sawtooth, 4 is triangle
+    int waveSelection = 0; //0 is sine, 1 is square, 2 is sawtooth, 3 is triangle
     
     Modulator mod;
 

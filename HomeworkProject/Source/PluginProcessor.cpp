@@ -38,7 +38,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout HomeworkProjectAudioProcesso
     
     params.push_back(std::make_unique<juce::AudioParameterFloat>( juce::ParameterID("freqValue",1),"Modulation Frequency", juce::NormalisableRange<float> (1.f, 1000.f), 500.f));
     
-    params.push_back(std::make_unique<juce::AudioParameterChoice>(juce::ParameterID("waveChoice",1), "Modulation Type", juce::StringArray ("Sine","Sawtooth","Square","Triangle"), 1));
+    params.push_back(std::make_unique<juce::AudioParameterChoice>(juce::ParameterID("waveChoice",1), "Modulation Type", juce::StringArray ("Sine","Sawtooth","Square","Triangle"), 0));
     
     return {params.begin(), params.end()};
 }
@@ -169,7 +169,7 @@ void HomeworkProjectAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
     setModFreq(freqValue);
     
     int choice = *state.getRawParameterValue("waveChoice");
-    mod.setModWaveSelection(choice);
+    setWaveSelection(choice);
     
     
     //loop through all channels
@@ -220,7 +220,7 @@ void HomeworkProjectAudioProcessor::setStateInformation (const void* data, int s
 
 //update wet/dry value
 void HomeworkProjectAudioProcessor::setWetMix(float mixValue){
-    mixWet = mixValue;
+    mixWet = mixValue / 100.f;
     mixDry = 1.f-mixWet;
 }
 //update modulator frequency

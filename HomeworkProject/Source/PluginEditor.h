@@ -30,6 +30,10 @@ public:
 //    virtual void sliderValueChanged(juce::Slider* slider) override;
 
 private:
+    
+    //set look and feel
+    juce::LookAndFeel_V4 lookAndFeel4;
+    
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     HomeworkProjectAudioProcessor& audioProcessor;
@@ -42,8 +46,7 @@ private:
     juce::ComboBox modWaveSelector;
 
     
-    //set look and feel
-    juce::LookAndFeel_V4 lookAndFeel4;
+   
     
     //create component labels
     juce::Label wetDryLabel;

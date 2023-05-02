@@ -65,5 +65,5 @@ void Modulator::updateCurrentAngle(const int c){
 
 void Modulator::setModWaveSelection(int waveChoice){
     
-    waveType = waveChoice-1;
+    waveType = waveChoice;
 }
