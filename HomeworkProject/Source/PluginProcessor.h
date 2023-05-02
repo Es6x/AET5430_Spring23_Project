@@ -60,14 +60,14 @@ public:
     //==============================================================================
 
     void setWetMix(float mixValue);
-    float mixWet = 0.5f;
-    float mixDry = 0.5f;
+    float mixWet;
+    float mixDry;
     
     void setModFreq(int freqValue);
-    float modFreq = 500.f;
+    float modFreq;
     
     void setWaveSelection(int choice);
-    int waveSelection = 0; //0 is sine, 1 is square, 2 is sawtooth, 3 is triangle
+    int waveSelection; //0 is sine, 1 is square, 2 is sawtooth, 3 is triangle
     
     Modulator mod;
 

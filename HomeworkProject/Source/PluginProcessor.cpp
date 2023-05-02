@@ -110,7 +110,7 @@ void HomeworkProjectAudioProcessor::prepareToPlay (double sampleRate, int sample
 {
     //prepare the modulator
     mod.prepareToPlay(sampleRate);
-    mod.setRate(500.f);
+    //mod.setRate(500.f);
 }
 
 void HomeworkProjectAudioProcessor::releaseResources()
@@ -207,6 +207,11 @@ juce::AudioProcessorEditor* HomeworkProjectAudioProcessor::createEditor()
 //==============================================================================
 void HomeworkProjectAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
+    
+    
+    auto currentState = state.copyState();
+    std::unique_ptr<juce::XmlElement> xml (currentState.createXml());
+    copyXmlToBinary(*xml, destData);
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
@@ -214,6 +219,11 @@ void HomeworkProjectAudioProcessor::getStateInformation (juce::MemoryBlock& dest
 
 void HomeworkProjectAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
+    std::unique_ptr<juce::XmlElement> xml (getXmlFromBinary(data, sizeInBytes));
+    if (xml && xml->hasTagName(state.state.getType())){
+        state.replaceState(juce::ValueTree::fromXml(*xml));
+    }
+    
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
 }
